@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: peterson
+    ports:
+      - 5432
+
+  web:
+    build: .
+    command: sh start.sh
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: peterson
+    volumes:
+      - .:/app
+      - gems:/usr/local/bundle
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+volumes:
+  gems:
