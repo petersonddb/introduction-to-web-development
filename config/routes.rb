@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+require 'api_version_constraint'
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    scope module: :v1,
+          constraints: ApiVersionConstraint.new(version: 1, default: true) do
+      resources :users, only: %i[create]
+    end
+  end
 end
