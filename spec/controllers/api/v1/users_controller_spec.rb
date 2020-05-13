@@ -13,11 +13,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it { expect { post_create }.to change(User, :count).by 1 }
 
       describe 'response' do
-        subject(:the_response) do
-          post_create
-
-          JSON.parse(response.body, symbolize_names: true)
-        end
+        subject(:the_response) { json_parsed_response { post_create } }
 
         it { expect(the_response.keys).to contain_exactly(:id) }
 
@@ -29,9 +25,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       describe 'created user' do
         subject(:created_user) do
           post_create
-          the_response = JSON.parse(response.body, symbolize_names: true)
 
-          User.find(the_response[:id])
+          User.find(json_parsed_response[:id])
         end
 
         it { expect(created_user.email).to eq params[:email] }
@@ -45,11 +40,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it { expect { post_create }.not_to change(User, :count) }
 
       describe 'response' do
-        subject(:the_response) do
-          post_create
-
-          JSON.parse(response.body, symbolize_names: true)
-        end
+        subject(:the_response) { json_parsed_response { post_create } }
 
         it { expect(the_response.keys).to contain_exactly(:errors) }
 
