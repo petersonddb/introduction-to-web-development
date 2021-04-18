@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api:
+    image: node:15.12.0
+    command: node api.js
+    working_dir: /web
+    ports:
+      - 3001:3000
+    volumes:
+      - ./:/web
