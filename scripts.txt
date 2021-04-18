@@ -1,0 +1,8 @@
+# Create new app
+docker run --rm -v $(pwd):/web node:15.12.0 npx create-react-app web
+
+# Run app in dev
+docker-compose up web
+
+# Give permission over files created from container
+sudo chown -R <user> .
