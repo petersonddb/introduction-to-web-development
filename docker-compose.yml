@@ -9,3 +9,5 @@ services:
       - 3001:3000
     volumes:
       - ./:/web
+    env_file:
+      - .env

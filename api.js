@@ -1,9 +1,11 @@
 var express = require("express");
+var cors = require('cors');
 var app = express();
 
 var count = 1;
 const tickedDates = [];
 
+app.use(cors({ origin: process.env.ALLOWED_ORIGINS }));
 app.use(express.json());
 
 app.post("/ticked-dates", (req, res, next) => {
