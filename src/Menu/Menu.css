@@ -1,0 +1,22 @@
+.menu {
+  background: #ECECEC;
+  padding: 26px 12px;
+}
+
+.menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+.menu ul li {
+  padding: 2px 8px;
+  font-size: 1.3em;
+  list-style: none;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.menu ul li.active {
+  border-radius: 0 10px 10px 0;
+  background: #A6F0F0;
+}

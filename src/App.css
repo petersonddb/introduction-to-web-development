@@ -1,3 +1,14 @@
 .app-container {
-  margin: 10em;
+  display: flex;
+  height: 100vh;
+}
+
+.app-container .menu {
+  flex-grow: 0.2;
+}
+
+.app-container .ticked-dates {
+  flex-grow: 1;
+  padding: 10em;
+  overflow: auto;
 }
