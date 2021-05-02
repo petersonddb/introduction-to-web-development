@@ -1,7 +1,7 @@
 import './TickedDatesTableEntry.css';
 import { useState } from "react";
 
-const TickedDatesTableEntry = ({tickedDate, onSubmit}) => {
+const TickedDatesTableEntry = ({ tickedDate, onSubmit = null }) => {
   const [date, setDate] = useState(tickedDate.date)
   const readOnly = onSubmit === null;
 

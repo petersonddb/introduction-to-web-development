@@ -1,7 +1,7 @@
 import './TickedDatesTable.css'
 import TickedDatesTableEntry from "./TickedDatesTableEntry/TickedDatesTableEntry";
 
-const TickedDatesTable = ({tickedDates, onSubmit}) => {
+const TickedDatesTable = ({ tickedDates, onSubmit = null }) => {
   return (
     <table className="ticked-dates-table">
       <tbody>
