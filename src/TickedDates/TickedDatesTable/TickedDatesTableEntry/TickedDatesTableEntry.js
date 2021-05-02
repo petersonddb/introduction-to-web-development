@@ -7,6 +7,7 @@ const TickedDatesTableEntry = ({tickedDate, onSubmit}) => {
 
   const handleFormSubmit = (e) => {
     onSubmit({date});
+    setDate('');
     e.preventDefault();
   }
 
