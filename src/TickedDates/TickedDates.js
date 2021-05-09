@@ -29,7 +29,7 @@ const TickedDates = () => {
 
   return (
     <div className="ticked-dates">
-      <h2 className="title">Datas Marcadas</h2>
+      <h1 className="title">Datas Marcadas</h1>
 
       <TickedDatesTable className="ticked-dates-table" tickedDates={[{ id: '', date: '' }]} onSubmit={createTickedDate} />
       {tickedDates.length > 0 ? <TickedDatesTable className="ticked-dates-table" tickedDates={tickedDates} />
