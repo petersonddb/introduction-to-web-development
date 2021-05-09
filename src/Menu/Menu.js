@@ -1,13 +1,13 @@
 import './Menu.css';
-import Link from '../Link/Link';
+import { Link } from 'react-router-dom';
 
 const Menu = () => {
   return (
     <nav className="menu">
       <ul>
-        <Link to="/ticked-dates">
-          <li className="active">Datas marcadas</li>
-        </Link>
+        <li className="active">
+          <Link className="anchor" to="/ticked-dates">Datas marcadas</Link>
+        </li>
       </ul>
     </nav>
   );
