@@ -15,3 +15,7 @@
   margin: 6px 12px;
   text-align: center;
 }
+
+.ticked-dates-table-entry td input[type="submit"] {
+  display: none;
+}

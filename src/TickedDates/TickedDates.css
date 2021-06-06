@@ -10,3 +10,8 @@
 .ticked-dates .blank-slate {
   width: 100%;
 }
+
+.ticked-dates .errors-list {
+  width: 100%;
+  margin-bottom: 12px;
+}

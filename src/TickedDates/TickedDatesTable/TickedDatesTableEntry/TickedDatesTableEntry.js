@@ -2,7 +2,7 @@ import './TickedDatesTableEntry.css';
 import { useState } from "react";
 
 const TickedDatesTableEntry = ({ tickedDate, onSubmit = null }) => {
-  const [date, setDate] = useState(tickedDate.date)
+  const [date, setDate] = useState('')
   const readOnly = onSubmit === null;
 
   const handleFormSubmit = (e) => {
@@ -19,8 +19,14 @@ const TickedDatesTableEntry = ({ tickedDate, onSubmit = null }) => {
       <td>
         <form onSubmit={handleFormSubmit}>
           {readOnly
-            ? <div>{tickedDate.date}</div>
-            : <input value={date} onChange={(e) => setDate(e.target.value)} />
+            ? (
+              <div>{tickedDate.date.toLocaleDateString()}</div>
+            ) : (
+              <>
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                <input type="submit" />
+              </>
+            )
           }
         </form>
       </td>
