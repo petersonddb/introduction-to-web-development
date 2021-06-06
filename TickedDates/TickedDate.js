@@ -10,7 +10,7 @@ const findAll = () => {
 }
 
 const create = ({ date }) => {
-  const tickedDate = { id: count, date: date }
+  const tickedDate = { date: date }
 
   tickedDate['update'] = (attrs) => {
     Object.keys(attrs).forEach((attr) => {
@@ -18,9 +18,22 @@ const create = ({ date }) => {
     }
   )}
 
-  tickedDates.push(tickedDate)
-  ++count
+  if(valid(tickedDate)) {
+    tickedDate.id = count
+    tickedDates.push(tickedDate)
+    ++count
+  }
+
   return tickedDate
+}
+
+const valid = (tickedDate) => {
+  const date = new Date(tickedDate.date)
+
+  if(date == 'Invalid Date')
+    tickedDate.errors = { date: 'Formato de data inválido' }
+
+  return !tickedDate.errors
 }
 
 exports.find = find

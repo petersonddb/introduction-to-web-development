@@ -3,7 +3,14 @@ const TickedDate = require('./TickedDate')
 
 const create = (req, res) => {
   const tickedDate = TickedDate.create(req.body)
-  res.json({ id: tickedDate.id })
+
+  if(tickedDate.errors) {
+    res.status(422).json(tickedDate)
+
+    return
+  }
+
+  res.status(201).json({ id: tickedDate.id })
 }
 
 const index = (req, res) => {
