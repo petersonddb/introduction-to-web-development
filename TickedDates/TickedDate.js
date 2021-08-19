@@ -1,41 +1,16 @@
-var count = 1
-const tickedDates = []
+const mongoose = require('mongoose')
 
-const find = (id) => {
-  return tickedDates.find((td) => td.id == id)
-}
-
-const findAll = () => {
-  return tickedDates
-}
-
-const create = ({ date }) => {
-  const tickedDate = { date: date }
-
-  tickedDate['update'] = (attrs) => {
-    Object.keys(attrs).forEach((attr) => {
-      tickedDate[attr] = attrs[attr]
-    }
-  )}
-
-  if(valid(tickedDate)) {
-    tickedDate.id = count
-    tickedDates.push(tickedDate)
-    ++count
+const TickedDateSchema = new mongoose.Schema({
+  date: {
+    type: String,
+    validate: {
+      validator: (date) => new Date(date) != 'Invalid Date',
+      message: 'Data não está em formato válido',
+    },
+    required: [true, 'Data não foi informada'],
   }
+})
 
-  return tickedDate
-}
+const TickedDate = mongoose.model('TickedDate', TickedDateSchema)
 
-const valid = (tickedDate) => {
-  const date = new Date(tickedDate.date)
-
-  if(date == 'Invalid Date')
-    tickedDate.errors = { date: 'Formato de data inválido' }
-
-  return !tickedDate.errors
-}
-
-exports.find = find
-exports.findAll = findAll
-exports.create = create
+module.exports = TickedDate

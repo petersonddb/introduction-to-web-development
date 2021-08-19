@@ -1,38 +1,55 @@
 const router = require('express').Router()
 const TickedDate = require('./TickedDate')
 
-const create = (req, res) => {
-  const tickedDate = TickedDate.create(req.body)
-
-  if(tickedDate.errors) {
-    res.status(422).json(tickedDate)
-
-    return
-  }
-
-  res.status(201).json({ id: tickedDate.id })
+const create = (req, res, next) => {
+  TickedDate.create(tickedDateParams(req), (err, tickedDate) => {
+    if(err)
+      next(err)
+    else
+      res.status(201).json({ _id: tickedDate._id })
+  })
 }
 
-const index = (req, res) => {
-  res.json(TickedDate.findAll())
+const index = async (req, res, next) => {
+  TickedDate.find({}, (err, tickedDates) => {
+    if(err)
+      next(err)
+    else
+      res.json(tickedDates)
+  });
 }
 
-const show = (req, res) => {
-  const tickedDate = TickedDate.find(req.params.id)
-  res.json(tickedDate)
+const show = (req, res, next) => {
+  TickedDate.findById(req.params.id, (err, tickedDate) => {
+    if(err)
+      next(err)
+    else if(!tickedDate)
+      res.sendStatus(404)
+    else
+      res.json(tickedDate)
+  })
 }
 
 const update = (req, res, next) => {
-  const tickedDate = TickedDate.find(req.params.id)
+  TickedDate.findById(req.params.id, (err, tickedDate) => {
+    if(err)
+      next(err)
+    else if(!tickedDate)
+      res.sendStatus(404)
+    else {
+      tickedDate.set(tickedDateParams(req))
+      tickedDate.save((err) => {
+        if(err)
+          next(err)
+        else
+          res.sendStatus(200)
+      })
+    }
+  })
+}
 
-  if (!tickedDate)
-    res.status(404)
-  else {
-    tickedDate.update({ date: req.body.date })
-    res.status(200)
-  }
-
-  res.end()
+const tickedDateParams = (req) => {
+  return req.parameters.permit('date').value()
 }
 
 router.post("/ticked-dates", create)
