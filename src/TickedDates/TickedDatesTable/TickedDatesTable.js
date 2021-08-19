@@ -6,7 +6,7 @@ const TickedDatesTable = ({ tickedDates, onSubmit = null }) => {
     <table className="ticked-dates-table">
       <tbody>
         {tickedDates.map((tickedDate) => {
-          return <TickedDatesTableEntry key={tickedDate.id}
+          return <TickedDatesTableEntry key={tickedDate._id || ''}
                                         onSubmit={onSubmit}
                                         tickedDate={tickedDate} />
         })}
