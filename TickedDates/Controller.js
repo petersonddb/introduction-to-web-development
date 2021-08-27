@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const TickedDate = require('./TickedDate')
+const JsonSerializer = require('./JsonSerializer')
 
 const create = (req, res, next) => {
   TickedDate.create(tickedDateParams(req), (err, tickedDate) => {
     if(err)
       next(err)
     else
-      res.status(201).json({ _id: tickedDate._id })
+      res.status(201).json(JsonSerializer.serialize(tickedDate))
   })
 }
 
@@ -15,7 +16,7 @@ const index = async (req, res, next) => {
     if(err)
       next(err)
     else
-      res.json(tickedDates)
+      res.json(JsonSerializer.serialize(tickedDates))
   });
 }
 
@@ -26,7 +27,7 @@ const show = (req, res, next) => {
     else if(!tickedDate)
       res.sendStatus(404)
     else
-      res.json(tickedDate)
+      res.json(JsonSerializer.serialize(tickedDate))
   })
 }
 
